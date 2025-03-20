@@ -3,7 +3,7 @@ import { View, Text, Alert, Dimensions, StyleSheet, TouchableOpacity } from 'rea
 import { GestureHandlerRootView, PanGestureHandler } from 'react-native-gesture-handler';
 
 const { width, height } = Dimensions.get('window');
-const gridSize = 20;
+const gridSize = 15; // Smaller grid size
 const initialSpeed = 200; // Snake speed at the start
 
 const SnakeGame = () => {
@@ -42,18 +42,18 @@ const SnakeGame = () => {
     if (head.y < 0) head.y = Math.floor(height / gridSize) - 1;
     if (head.y >= Math.floor(height / gridSize)) head.y = 0;
 
-    newSnake.unshift(head);
-    newSnake.pop();
+    newSnake.unshift(head); // Add new head at the front of the snake
+    newSnake.pop(); // Remove the tail segment if the snake is not growing
 
     // Check for collisions with itself
-    if (snake.some(segment => segment.x === head.x && segment.y === head.y)) {
+    if (newSnake.slice(1).some(segment => segment.x === head.x && segment.y === head.y)) {
       setGameOver(true);
       return;
     }
 
     // Check if snake eats food
     if (head.x === food.x && head.y === food.y) {
-      newSnake.push({ x: food.x, y: food.y });
+      newSnake.push({ x: food.x, y: food.y }); // Add a new segment to the snake
       setFood({
         x: Math.floor(Math.random() * (width / gridSize)),
         y: Math.floor(Math.random() * (height / gridSize)),
@@ -62,7 +62,7 @@ const SnakeGame = () => {
       setSpeed(speed - 10); // Gradually increase speed as snake grows
     }
 
-    setSnake(newSnake);
+    setSnake(newSnake); // Update the snake state
   };
 
   useEffect(() => {
@@ -160,17 +160,18 @@ const SnakeGame = () => {
           </TouchableOpacity>
         ) : (
           <>
-            <TouchableOpacity style={styles.button} onPress={handlePause}>
-              <Text style={styles.buttonText}>{paused ? 'Resume' : 'Pause'}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={handleRestart}>
-              <Text style={styles.buttonText}>Restart</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={handleStop}>
-              <Text style={styles.buttonText}>Stop</Text>
-            </TouchableOpacity>
-            <View style={styles.speedControlContainer}>
-              <Text style={styles.speedText}>Speed Control:</Text>
+            <View style={styles.buttonRow}>
+              <TouchableOpacity style={styles.button} onPress={handlePause}>
+                <Text style={styles.buttonText}>{paused ? 'Resume' : 'Pause'}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.button} onPress={handleRestart}>
+                <Text style={styles.buttonText}>Restart</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.button} onPress={handleStop}>
+                <Text style={styles.buttonText}>Stop</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.buttonRow}>
               <TouchableOpacity style={styles.button} onPress={() => handleSpeedChange(300)}>
                 <Text style={styles.buttonText}>Slow</Text>
               </TouchableOpacity>
@@ -198,12 +199,12 @@ const styles = StyleSheet.create({
   },
   title: {
     color: 'white',
-    fontSize: 24,
-    marginBottom: 20,
+    fontSize: 20,
+    marginBottom: 10,
   },
   gameContainer: {
     width: width - 40,
-    height: height - 120,
+    height: height - 180,
     position: 'relative',
     backgroundColor: '#333',
     marginBottom: 20,
@@ -213,12 +214,14 @@ const styles = StyleSheet.create({
     width: gridSize,
     height: gridSize,
     backgroundColor: 'green',
+    borderRadius: 5, // To create rounded body segments like a snake
   },
   food: {
     position: 'absolute',
     width: gridSize,
     height: gridSize,
     backgroundColor: 'red',
+    borderRadius: gridSize / 2, // Making the food round
   },
   scoreContainer: {
     marginBottom: 20,
@@ -229,19 +232,25 @@ const styles = StyleSheet.create({
   },
   controlsContainer: {
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: 10,
+  },
+  buttonRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    width: '100%',
+    marginBottom: 10,
   },
   button: {
     backgroundColor: '#3498db',
-    padding: 10,
+    padding: 8,
     margin: 5,
     borderRadius: 5,
-    width: 150,
+    width: 80,
     alignItems: 'center',
   },
   buttonText: {
     color: 'white',
-    fontSize: 18,
+    fontSize: 14,
   },
   speedControlContainer: {
     flexDirection: 'row',
