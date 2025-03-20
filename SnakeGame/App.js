@@ -155,7 +155,7 @@ const SnakeGame = () => {
 
       <View style={styles.controlsContainer}>
         {!started ? (
-          <TouchableOpacity style={styles.startButton} onPress={handleStart}>
+          <TouchableOpacity style={styles.button} onPress={handleStart}>
             <Text style={styles.buttonText}>Start</Text>
           </TouchableOpacity>
         ) : (
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingBottom: 50, // Ensures buttons don't overflow at the bottom
+    paddingBottom: 50,  // Ensures buttons don't overflow at the bottom
   },
   title: {
     color: 'white',
@@ -203,25 +203,22 @@ const styles = StyleSheet.create({
   },
   gameContainer: {
     width: width - 40,
-    height: height - 200, // Adjusted to fit buttons
+    height: height - 120,
     position: 'relative',
     backgroundColor: '#333',
     marginBottom: 20,
-    borderRadius: 10,
   },
   snakeSegment: {
     position: 'absolute',
     width: gridSize,
     height: gridSize,
-    backgroundColor: '#2ecc71', // Snake color (Green)
-    borderRadius: 5,
+    backgroundColor: 'green',
   },
   food: {
     position: 'absolute',
     width: gridSize,
     height: gridSize,
     backgroundColor: 'red',
-    borderRadius: 5,
   },
   scoreContainer: {
     marginBottom: 20,
@@ -234,19 +231,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 20,
   },
-  startButton: {
-    backgroundColor: '#3498db',
-    padding: 15,
-    margin: 5,
-    borderRadius: 10,
-    width: 150,
-    alignItems: 'center',
-  },
   button: {
     backgroundColor: '#3498db',
     padding: 10,
     margin: 5,
-    borderRadius: 10,
+    borderRadius: 5,
     width: 150,
     alignItems: 'center',
   },
