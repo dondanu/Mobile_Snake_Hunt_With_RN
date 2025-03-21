@@ -55,8 +55,8 @@ const SnakeGame = () => {
     if (head.x === food.x && head.y === food.y) {
       newSnake.push({ x: food.x, y: food.y }); // Add a new segment to the snake
       setFood({
-        x: Math.floor(Math.random() * (width / gridSize)),
-        y: Math.floor(Math.random() * (height / gridSize)),
+        x: Math.floor(Math.random() * (Math.floor(width / gridSize))),
+        y: Math.floor(Math.random() * (Math.floor(height / gridSize))),
       });
       setScore(score + 1); // Increase score
       setSpeed(speed - 10); // Gradually increase speed as snake grows
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
     width: gridSize,
     height: gridSize,
     backgroundColor: 'red',
-    borderRadius: gridSize / 2, // Making the food round
+    borderRadius: gridSize / 2, // Making the food round and contained inside the grid
   },
   scoreContainer: {
     marginBottom: 20,
