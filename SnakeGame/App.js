@@ -7,6 +7,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Small from './Small';  // Make sure the path is correct
 import Medium from './Medium';  // Make sure the path is correct
 import Hard from './Hard';  // Make sure the path is correct
+import Contact from './Contact'; // Make sure the path is correct
 
 // Create a Stack Navigator
 const Stack = createStackNavigator();
@@ -30,24 +31,38 @@ const Home = ({ navigation }) => {
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{
-            headerRight: () => (
-              <TouchableOpacity style={styles.licenseButton} onPress={() => alert('License info')}>
-                <Text style={styles.buttonText}>License</Text>
-              </TouchableOpacity>
-            ),
-          }}
-        />
-        <Stack.Screen name="Small" component={Small} />
+    
+<NavigationContainer>
+  <Stack.Navigator initialRouteName="Home">
+    <Stack.Screen
+      name="Home"
+      component={Home}
+      options={({ navigation }) => ({
+        headerStyle: {
+          backgroundColor: '#3498db', // Customize the header background color
+          padding: 10,
+        },
+        headerTitleStyle: {
+          color: 'white', // Set the color of the title in the header
+          fontSize: 20,
+        },
+        headerRight: () => (
+          <TouchableOpacity style={styles.licenseButton} onPress={() => navigation.navigate('Contact')}>
+            <Text style={styles.buttonText2}>License</Text>
+          </TouchableOpacity>
+        ),
+      })}
+    />
+    {/* Other screens */}
+    <Stack.Screen name="Small" component={Small} />
         <Stack.Screen name="Medium" component={Medium} />
         <Stack.Screen name="Hard" component={Hard} />
-      </Stack.Navigator>
-    </NavigationContainer>
+        <Stack.Screen name="Contact" component={Contact} />
+  </Stack.Navigator>
+</NavigationContainer>
+
+
+ 
   );
 };
 
@@ -64,7 +79,15 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   button: {
-    backgroundColor: '#3498db',
+    backgroundColor: '#3498db', // Default button color
+    padding: 10,
+    margin: 10,
+    borderRadius: 5,
+    width: 200,
+    alignItems: 'center',
+  },
+  homeButton: {
+    backgroundColor: '#2ecc71', // Only Home button is green
     padding: 10,
     margin: 10,
     borderRadius: 5,
@@ -75,6 +98,12 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
   },
+
+  buttonText2: {
+    color: 'white',
+    fontSize: 20,
+  },
+
   licenseButton: {
     marginRight: 15,
     padding: 10,
