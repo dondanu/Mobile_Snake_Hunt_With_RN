@@ -4,28 +4,33 @@ import { GestureHandlerRootView, PanGestureHandler } from 'react-native-gesture-
 
 const { width, height } = Dimensions.get('window');
 const gridSize = 15; // Smaller grid size
-const initialSpeed = 100; // Snake speed at the start, faster for higher difficulty
+const initialSpeed = 200; // Snake speed at the start, faster for higher difficulty
 
-// Function to generate random barriers as lines
-const generateBarriers = (numberOfBarriers) => {
+// Function to generate long barriers (horizontal/vertical)
+const generateBarriers = () => {
   let barriers = [];
-  for (let i = 0; i < numberOfBarriers; i++) {
-    const isHorizontal = Math.random() > 0.5;
-    const position = Math.floor(Math.random() * (Math.floor(width / gridSize) - 1));
-    const barrierLength = Math.floor(Math.random() * (Math.floor(width / gridSize) / 2) + 2); // Random length from 2 to half the screen width
+  const numOfBarriers = 7; // Create 5 barriers for this level
+
+  for (let i = 0; i < numOfBarriers; i++) {
+    const isHorizontal = Math.random() > 0.5; // Randomly decide if it's horizontal or vertical
+    const startX = Math.floor(Math.random() * Math.floor(width / gridSize));
+    const startY = Math.floor(Math.random() * Math.floor(height / gridSize));
+
+    const barrierLength = Math.floor(Math.random() * (Math.floor(width / gridSize) / 2)) + 5; // Random length of barrier
 
     if (isHorizontal) {
-      // Horizontal line barrier
-      for (let j = 0; j < barrierLength; j++) {
-        barriers.push({ x: position + j, y: Math.floor(Math.random() * (Math.floor(height / gridSize) - 1)) });
+      // Create a horizontal barrier
+      for (let x = startX; x < startX + barrierLength && x < Math.floor(width / gridSize); x++) {
+        barriers.push({ x, y: startY });
       }
     } else {
-      // Vertical line barrier
-      for (let j = 0; j < barrierLength; j++) {
-        barriers.push({ x: Math.floor(Math.random() * (Math.floor(width / gridSize) - 1)), y: position + j });
+      // Create a vertical barrier
+      for (let y = startY; y < startY + barrierLength && y < Math.floor(height / gridSize); y++) {
+        barriers.push({ x: startX, y });
       }
     }
   }
+
   return barriers;
 };
 
@@ -38,7 +43,7 @@ const SnakeGame = () => {
   const [paused, setPaused] = useState(false); // To check if the game is paused
   const [score, setScore] = useState(0); // Score state
   const [started, setStarted] = useState(false); // To check if the game has started
-  const [barriers, setBarriers] = useState(generateBarriers(5)); // Generate barriers
+  const [barriers, setBarriers] = useState(generateBarriers()); // Generate barriers as long lines
 
   const moveSnake = () => {
     let newSnake = [...snake];
@@ -89,7 +94,7 @@ const SnakeGame = () => {
         y: Math.floor(Math.random() * (Math.floor((height - 180) / gridSize))),
       });
       setScore(score + 1);
-      setSpeed(speed - 10);
+      setSpeed(speed - 10); // Gradually increase speed as snake grows
     }
 
     setSnake(newSnake); // Update the snake state
