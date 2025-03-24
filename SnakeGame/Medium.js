@@ -4,7 +4,7 @@ import { GestureHandlerRootView, PanGestureHandler } from 'react-native-gesture-
 
 const { width, height } = Dimensions.get('window');
 const gridSize = 15; // Grid size
-const initialSpeed = 180; // Faster speed for medium level
+const initialSpeed = 200; // Faster speed for medium level
 
 const barrierCount = 5; // Number of barriers in the game
 const barriers = [];
