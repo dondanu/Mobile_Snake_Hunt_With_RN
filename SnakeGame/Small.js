@@ -37,10 +37,10 @@ const SnakeGame = () => {
     }
 
     // Make sure snake stays inside the grid
-    if (head.x < 0) head.x = Math.floor((width - 40) / gridSize) - 1;  // Box width minus padding
-    if (head.x >= Math.floor((width - 40) / gridSize)) head.x = 0;  // Wrap around when snake goes out of bounds
-    if (head.y < 0) head.y = Math.floor((height - 180) / gridSize) - 1;  // Box height minus padding
-    if (head.y >= Math.floor((height - 180) / gridSize)) head.y = 0;  // Wrap around when snake goes out of bounds
+    if (head.x < 0) head.x = Math.floor((width - 60) / gridSize) - 1;  // Reduced width boundary
+    if (head.x >= Math.floor((width - 60) / gridSize)) head.x = 0;  // Wrap around when snake goes out of bounds
+    if (head.y < 0) head.y = Math.floor((height - 220) / gridSize) - 1;  // Reduced height boundary
+    if (head.y >= Math.floor((height - 220) / gridSize)) head.y = 0;  // Wrap around when snake goes out of bounds
 
     newSnake.unshift(head); // Add new head at the front of the snake
     newSnake.pop(); // Remove the tail segment if the snake is not growing
@@ -52,16 +52,15 @@ const SnakeGame = () => {
     }
 
     // Check if snake eats food
-if (head.x === food.x && head.y === food.y) {
-  newSnake.push({ x: food.x, y: food.y }); // Add a new segment to the snake
-  setFood({
-    x: Math.floor(Math.random() * Math.floor((width - 40) / gridSize)), // Corrected parentheses
-    y: Math.floor(Math.random() * Math.floor((height - 180) / gridSize)) // Corrected parentheses
-  });
-  setScore(score + 1); // Increase score
-  setSpeed(speed - 10); // Gradually increase speed as snake grows
-}
-
+    if (head.x === food.x && head.y === food.y) {
+      newSnake.push({ x: food.x, y: food.y }); // Add a new segment to the snake
+      setFood({
+        x: Math.floor(Math.random() * Math.floor((width - 60) / gridSize)), // Corrected parentheses
+        y: Math.floor(Math.random() * Math.floor((height - 220) / gridSize)) // Corrected parentheses
+      });
+      setScore(score + 1); // Increase score
+      setSpeed(speed - 10); // Gradually increase speed as snake grows
+    }
 
     setSnake(newSnake); // Update the snake state
   };
@@ -204,8 +203,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   gameContainer: {
-    width: width - 40,
-    height: height - 180,
+    width: width - 60, // Reduced width
+    height: height - 220, // Reduced height
     position: 'relative',
     backgroundColor: '#333',
     marginBottom: 10,
