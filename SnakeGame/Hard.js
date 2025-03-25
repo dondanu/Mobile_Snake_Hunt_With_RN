@@ -9,7 +9,7 @@ const initialSpeed = 200; // Snake speed at the start, faster for higher difficu
 // Function to generate long barriers (horizontal/vertical)
 const generateBarriers = () => {
   let barriers = [];
-  const numOfBarriers = 7; // Create 5 barriers for this level
+  const numOfBarriers = 10; // Create 5 barriers for this level
 
   for (let i = 0; i < numOfBarriers; i++) {
     const isHorizontal = Math.random() > 0.5; // Randomly decide if it's horizontal or vertical
@@ -160,7 +160,7 @@ const SnakeGame = () => {
 
   return (
     <GestureHandlerRootView style={styles.container}>
-      <Text style={styles.title}>Hard Snake Game</Text>
+      <Text style={styles.title}>Level 3 - The walls</Text>
       <View style={styles.scoreContainer}>
         <Text style={styles.score}>Score: {score}</Text>
       </View>
@@ -239,12 +239,12 @@ const styles = StyleSheet.create({
   },
   title: {
     color: 'white',
-    fontSize: 20,
-    marginBottom: 10,
+    fontSize: 20,marginTop:12,
+    marginBottom: -2,
   },
   gameContainer: {
-    width: width - 40,
-    height: height - 180,
+    width: width - 80,
+    height: height - 250,
     position: 'relative',
     backgroundColor: '#333',
     marginBottom: 10,
