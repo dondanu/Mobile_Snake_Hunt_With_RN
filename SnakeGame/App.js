@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Animated } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -13,21 +13,46 @@ import Contact from './Contact'; // Make sure the path is correct
 const Stack = createStackNavigator();
 
 const Home = ({ navigation }) => {
+  const scaleValue = new Animated.Value(1);
+
+  const onPressButton = (screen) => {
+    Animated.sequence([
+      Animated.spring(scaleValue, { toValue: 0.9, useNativeDriver: true }),
+      Animated.spring(scaleValue, { toValue: 1, useNativeDriver: true })
+    ]).start(() => navigation.navigate(screen));
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Snake Game</Text>
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Small')}>
-        <Text style={styles.buttonText}>Level 1</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Medium')}>
-        <Text style={styles.buttonText}>Level 2</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Hard')}>
-        <Text style={styles.buttonText}>Level 3</Text>
-      </TouchableOpacity>
+      <Text style={styles.title}>Snake Hunt</Text>
+      <Animated.View style={{ transform: [{ scale: scaleValue }] }}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => onPressButton('Small')}
+        >
+          <Text style={styles.buttonText}>Level 1</Text>
+        </TouchableOpacity>
+      </Animated.View>
+      <Animated.View style={{ transform: [{ scale: scaleValue }] }}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => onPressButton('Medium')}
+        >
+          <Text style={styles.buttonText}>Level 2</Text>
+        </TouchableOpacity>
+      </Animated.View>
+      <Animated.View style={{ transform: [{ scale: scaleValue }] }}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => onPressButton('Hard')}
+        >
+          <Text style={styles.buttonText}>Level 3</Text>
+        </TouchableOpacity>
+      </Animated.View>
     </View>
   );
 };
+
 
 const App = () => {
   return (
@@ -45,6 +70,8 @@ const App = () => {
         headerTitleStyle: {
           color: 'white', // Set the color of the title in the header
           fontSize: 20,
+          fontWeight: 'bold',
+              fontFamily: 'Roboto', // Optional: Custom font
         },
         headerRight: () => (
           <TouchableOpacity style={styles.licenseButton} onPress={() => navigation.navigate('License')}>
@@ -75,8 +102,10 @@ const styles = StyleSheet.create({
   },
   title: {
     color: 'white',
-    fontSize: 30,
-    marginBottom: 30,
+    fontSize: 35,
+    fontWeight: 'bold',
+    marginBottom: 40,
+    fontFamily: 'Roboto', // Optional: Custom font
   },
   button: {
     backgroundColor: '#3498db', // Default button color
@@ -88,15 +117,17 @@ const styles = StyleSheet.create({
   },
   homeButton: {
     backgroundColor: '#2ecc71', // Only Home button is green
-    padding: 10,
-    margin: 10,
-    borderRadius: 5,
-    width: 200,
+    padding: 15,
+    margin: 12,
+    borderRadius: 10,
+    width: 250,
     alignItems: 'center',
+    elevation: 5, // Adds a subtle shadow effect
   },
   buttonText: {
     color: 'white',
     fontSize: 18,
+    fontWeight: 'bold'
   },
 
   buttonText2: {
