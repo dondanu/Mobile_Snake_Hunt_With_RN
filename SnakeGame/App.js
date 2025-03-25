@@ -40,14 +40,14 @@ const App = () => {
       options={({ navigation }) => ({
         headerStyle: {
           backgroundColor: '#3498db', // Customize the header background color
-          padding: 10,
+          
         },
         headerTitleStyle: {
           color: 'white', // Set the color of the title in the header
           fontSize: 20,
         },
         headerRight: () => (
-          <TouchableOpacity style={styles.licenseButton} onPress={() => navigation.navigate('Contact')}>
+          <TouchableOpacity style={styles.licenseButton} onPress={() => navigation.navigate('License')}>
             <Text style={styles.buttonText2}>License</Text>
           </TouchableOpacity>
         ),
@@ -57,7 +57,7 @@ const App = () => {
     <Stack.Screen name="Small" component={Small} />
         <Stack.Screen name="Medium" component={Medium} />
         <Stack.Screen name="Hard" component={Hard} />
-        <Stack.Screen name="Contact" component={Contact} />
+        <Stack.Screen name="License" component={Contact} />
   </Stack.Navigator>
 </NavigationContainer>
 
