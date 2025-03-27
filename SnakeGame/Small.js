@@ -37,10 +37,10 @@ const SnakeGame = () => {
     }
 
     // Make sure snake stays inside the grid
-    if (head.x < 0) head.x = Math.floor((width - 60) / gridSize) - 1;  // Reduced width boundary
-    if (head.x >= Math.floor((width - 60) / gridSize)) head.x = 0;  // Wrap around when snake goes out of bounds
-    if (head.y < 0) head.y = Math.floor((height - 220) / gridSize) - 1;  // Reduced height boundary
-    if (head.y >= Math.floor((height - 220) / gridSize)) head.y = 0;  // Wrap around when snake goes out of bounds
+    if (head.x < 0) head.x = Math.floor((width - 80) / gridSize) - 1;  // Reduced width boundary more
+    if (head.x >= Math.floor((width - 80) / gridSize)) head.x = 0;  // Wrap around when snake goes out of bounds
+    if (head.y < 0) head.y = Math.floor((height - 250) / gridSize) - 1;  // Reduced height boundary more
+    if (head.y >= Math.floor((height - 250) / gridSize)) head.y = 0;  // Wrap around when snake goes out of bounds
 
     newSnake.unshift(head); // Add new head at the front of the snake
     newSnake.pop(); // Remove the tail segment if the snake is not growing
@@ -55,8 +55,8 @@ const SnakeGame = () => {
     if (head.x === food.x && head.y === food.y) {
       newSnake.push({ x: food.x, y: food.y }); // Add a new segment to the snake
       setFood({
-        x: Math.floor(Math.random() * Math.floor((width - 60) / gridSize)), // Corrected parentheses
-        y: Math.floor(Math.random() * Math.floor((height - 220) / gridSize)) // Corrected parentheses
+        x: Math.floor(Math.random() * Math.floor((width - 80) / gridSize)), // Corrected parentheses
+        y: Math.floor(Math.random() * Math.floor((height - 250) / gridSize)) // Corrected parentheses
       });
       setScore(score + 1); // Increase score
       setSpeed(speed - 10); // Gradually increase speed as snake grows
@@ -129,7 +129,7 @@ const SnakeGame = () => {
 
   return (
     <GestureHandlerRootView style={styles.container}>
-      <Text style={styles.title}>Level 1: Snake Game</Text>
+      <Text style={styles.title}>Level 1 - Snake Puzzle</Text>
       <View style={styles.scoreContainer}>
         <Text style={styles.score}>Score: {score}</Text>
       </View>
@@ -199,12 +199,12 @@ const styles = StyleSheet.create({
   },
   title: {
     color: 'white',
-    fontSize: 20,
-    marginBottom: 10,
+    fontSize: 20,marginTop:12,
+    marginBottom: -2,
   },
   gameContainer: {
-    width: width - 60, // Reduced width
-    height: height - 220, // Reduced height
+    width: width - 80, // Reduced width more
+    height: height - 250, // Reduced height more
     position: 'relative',
     backgroundColor: '#333',
     marginBottom: 10,
