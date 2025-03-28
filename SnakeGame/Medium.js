@@ -6,7 +6,7 @@ const { width, height } = Dimensions.get('window');
 const gridSize = 15; // Grid size
 const initialSpeed = 200; // Faster speed for medium level
 
-const barrierCount = 5; // Number of barriers in the game
+const barrierCount = 10; // Number of barriers in the game
 const barriers = [];
 
 // Function to generate random barriers
@@ -14,8 +14,8 @@ const generateBarriers = () => {
   let generatedBarriers = [];
   for (let i = 0; i < barrierCount; i++) {
     generatedBarriers.push({
-      x: Math.floor(Math.random() * Math.floor((width - 40) / gridSize)),
-      y: Math.floor(Math.random() * Math.floor((height - 180) / gridSize)),
+      x: Math.floor(Math.random() * Math.floor((width - 80) / gridSize)),
+      y: Math.floor(Math.random() * Math.floor((height - 250) / gridSize)),
     });
   }
   return generatedBarriers;
@@ -62,18 +62,18 @@ const MediumGame = () => {
     if (head.x === food.x && head.y === food.y) {
       newSnake.push({ x: food.x, y: food.y }); // Add a new segment to the snake
       setFood({
-        x: Math.floor(Math.random() * Math.floor((width - 40) / gridSize)),
-        y: Math.floor(Math.random() * Math.floor((height - 180) / gridSize)),
+        x: Math.floor(Math.random() * Math.floor((width - 80) / gridSize)),
+        y: Math.floor(Math.random() * Math.floor((height - 250) / gridSize)),
       });
       setScore(score + 1); // Increase score
       setSpeed(speed - 5); // Gradually increase speed as snake grows
     }
 
     // Make sure snake stays inside the grid
-    if (head.x < 0) head.x = Math.floor((width - 40) / gridSize) - 1;
-    if (head.x >= Math.floor((width - 40) / gridSize)) head.x = 0;
-    if (head.y < 0) head.y = Math.floor((height - 180) / gridSize) - 1;
-    if (head.y >= Math.floor((height - 180) / gridSize)) head.y = 0;
+    if (head.x < 0) head.x = Math.floor((width - 80) / gridSize) - 1;
+    if (head.x >= Math.floor((width - 80) / gridSize)) head.x = 0;
+    if (head.y < 0) head.y = Math.floor((height - 250) / gridSize) - 1;
+    if (head.y >= Math.floor((height - 250) / gridSize)) head.y = 0;
 
     newSnake.unshift(head); // Add new head at the front of the snake
     newSnake.pop(); // Remove the tail segment if the snake is not growing
@@ -147,7 +147,7 @@ const MediumGame = () => {
 
   return (
     <GestureHandlerRootView style={styles.container}>
-      <Text style={styles.title}>Snake Game</Text>
+      <Text style={styles.title}>Level 2 - The Points</Text>
       <View style={styles.scoreContainer}>
         <Text style={styles.score}>Score: {score}</Text>
       </View>
@@ -226,12 +226,12 @@ const styles = StyleSheet.create({
   },
   title: {
     color: 'white',
-    fontSize: 20,
-    marginBottom: 10,
+    fontSize: 20,marginTop:12,
+    marginBottom: -2,
   },
   gameContainer: {
-    width: width - 40,
-    height: height - 180,
+    width: width - 80,
+    height: height - 250,
     position: 'relative',
     backgroundColor: '#333',
     marginBottom: 10,
